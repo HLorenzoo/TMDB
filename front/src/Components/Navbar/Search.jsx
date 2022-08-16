@@ -13,6 +13,7 @@ import {
   DialogActions,
   Dialog,
   Slide,
+  Box,
 } from "@mui/material";
 import React from "react";
 import { PersonPin, AddBox } from "@mui/icons-material";
@@ -20,9 +21,12 @@ import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SingUp from "./Singup";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSearch } from "../../state/search";
 import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logOut } from "../../state/login";
 const CustomButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.light.button,
   color: "white",
@@ -37,11 +41,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const Search = (props) => {
+  const user = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
-
+  console.log("el usuario es :", user);
   const [search, setsearch] = useState("");
 
   const handleChange = (event) => {
@@ -51,7 +56,9 @@ const Search = (props) => {
     e.preventDefault();
     dispatch(getSearch(search)).then(() => navigate("/search"));
   };
-
+  const handelLogOut = (e) => {
+    dispatch(logOut()).then(() => navigate("/"));
+  };
   return (
     <div
       style={{
@@ -92,7 +99,28 @@ const Search = (props) => {
           sx={{ fontSize: 40, display: { xs: "block", md1: "none" } }}
         />
       </CustomButton>
-      {
+      {user ? (
+        <Dialog
+          open={openLogin}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={(e) => setOpenLogin(!openLogin)}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <Box>
+            <DialogTitle>
+              <AccountCircleIcon
+                fontSize="large"
+                sx={{ color: "rgba(20,110,154,0.86)" }}
+              />
+              {user.username}
+            </DialogTitle>
+          </Box>
+          <CustomButton sx={{ marginRight: 6 }} onClick={handelLogOut}>
+            <LogoutIcon /> SingUp!
+          </CustomButton>
+        </Dialog>
+      ) : (
         <Dialog
           open={openLogin}
           TransitionComponent={Transition}
@@ -113,7 +141,7 @@ const Search = (props) => {
             </DialogContentText>
           </DialogContent>
         </Dialog>
-      }
+      )}
       {
         <Menu
           id="demo-positioned-menu"

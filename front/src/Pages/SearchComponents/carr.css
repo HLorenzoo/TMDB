@@ -52,6 +52,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 30px 10px 108px 6px;
+  box-shadow: -1px 14px 5px 0px rgba(0, 0, 0, 0.64);
 }
 .title {
   text-align: center;

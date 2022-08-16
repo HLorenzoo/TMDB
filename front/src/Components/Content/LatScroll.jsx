@@ -15,7 +15,7 @@ const LatScroll = () => {
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
+        `https://api.themoviedb.org/3/movie/popular?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
           Math.random() * 8 + 1
         )}`
       )

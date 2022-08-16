@@ -37,7 +37,7 @@ export default function Carousel({ movies }) {
               {movies.vote_count}
             </span>
           </p>
-          <p className="stretch">Actors: prueba</p>
+          <p className="stretch">Actors:</p>
         </div>
       </div>
     </div>
