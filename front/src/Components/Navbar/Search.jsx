@@ -20,7 +20,9 @@ import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SingUp from "./Singup";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-
+import { useDispatch } from "react-redux";
+import { getSearch } from "../../state/search";
+import { useNavigate } from "react-router-dom";
 const CustomButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.light.button,
   color: "white",
@@ -34,7 +36,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Search = () => {
+const Search = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
@@ -42,6 +46,10 @@ const Search = () => {
 
   const handleChange = (event) => {
     setsearch(event.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getSearch(search)).then(() => navigate("/search"));
   };
 
   return (
@@ -52,9 +60,11 @@ const Search = () => {
         justifyContent: "space-between",
       }}
     >
-      {" "}
       <CustomButton>
-        <SearchIcon sx={{ fontSize: 40, height: "4.5vh" }} />
+        <SearchIcon
+          sx={{ fontSize: 40, height: "4.5vh" }}
+          onClick={handleSubmit}
+        />
       </CustomButton>
       <FormControl sx={{ flexGrow: 1, width: "100%", minWidth: 300 }}>
         <InputLabel htmlFor="component-filled" sx={{}}>

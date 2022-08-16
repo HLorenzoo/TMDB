@@ -10,6 +10,7 @@ import Home from "./Pages/Home";
 import { Route, Routes } from "react-router";
 import Movies from "./Pages/Movies";
 import Series from "./Pages/Series";
+import Search from "./Pages/Search";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/series" element={<Series />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </Box>
     </div>

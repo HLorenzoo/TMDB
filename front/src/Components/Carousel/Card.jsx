@@ -65,6 +65,7 @@ export default function ActionAreaCard({ pelicula }) {
                   color: "rgba(255,255,255,0.78)",
                   backgroundColor: "rgba(0,0,0,.84)",
                   borderRadius: 4,
+                  marginLeft: 10,
 
                   maxWidth: "20%",
                   height: "50px",
