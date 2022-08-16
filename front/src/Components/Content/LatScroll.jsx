@@ -3,6 +3,7 @@ import axios from "axios";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import { Box, Grid, styled, Paper, Typography, Stack } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import { useSelector } from "react-redux";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#1d95cf",
   padding: theme.spacing(0.75),
@@ -10,9 +11,9 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: " 15px 19px 43px -17px rgba(0,0,0,0.55)",
 }));
 const LatScroll = () => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
+  /*   const [movies, setMovies] = useState([]); */
+  const movies = useSelector((state) => state.toprated);
+  /*   useEffect(() => {
     axios
       .get(
         `https://api.themoviedb.org/3/movie/popular?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
@@ -21,7 +22,7 @@ const LatScroll = () => {
       )
       .then((res) => setMovies(res.data.results));
   }, []);
-
+ */
   return (
     <Box
       sx={{

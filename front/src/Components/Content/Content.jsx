@@ -4,10 +4,12 @@ import Carousell from "../Carousel/Carousel";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import LatScroll from "./LatScroll";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const Content = () => {
-  const [movies, setMovies] = useState([]);
-  useEffect(() => {
+  /*  const [movies, setMovies] = useState([]); */
+  /*   const movies = useSelector((state) => state.movies); */
+  const movies = useSelector((state) => state.popular);
+  /*   useEffect(() => {
     axios
       .get(
         `https://api.themoviedb.org/3/movie/popular?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
@@ -15,7 +17,8 @@ const Content = () => {
         )}`
       )
       .then((res) => setMovies(res.data.results));
-  }, []);
+  }, []); */
+
   return (
     <Box flex={5} p={6}>
       <Stack direction="row" spacing={6} alignItems="center">

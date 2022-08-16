@@ -14,29 +14,47 @@ import Search from "./Pages/Search";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMe } from "./state/login";
-import { getMovies, getSeries } from "./state/media";
+import {
+  getMovies,
+  getSeries,
+  getMoviesPopular,
+  getMoviesTopRated,
+  getMoviesupcoming,
+  getSeriePopular,
+  getSerieTopRated,
+  // MOVIE REDUCERS
+} from "./state/media";
 
 function App() {
   const dispatch = useDispatch();
-  const selector = useSelector();
   useEffect(() => {
     dispatch(sendMe());
-    dispatch(getMovies());
-    dispatch(getSeries());
+    /*    dispatch(getMovies());
+    dispatch(getSeries()); */
+    dispatch(getMoviesupcoming());
+    dispatch(getSeriePopular());
+    dispatch(getSerieTopRated());
+    dispatch(getMoviesPopular());
+    dispatch(getMoviesTopRated());
   }, []);
-  const movies = useSelector((state)=>state.movie);
-  const series = useSelector((state)=>state.serie);
+  const popular = useSelector((state) => state.popular);
+  const toprated = useSelector((state) => state.toprated);
+  console.log("estas son mis movies", popular);
+  console.log("estas son mis series", toprated);
   return (
     <div className="App">
       <Box>
         <Navbar />
-        {}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/series" element={<Series />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
+        {popular && toprated ? (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/series" element={<Series />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        ) : (
+          "waiting"
+        )}
       </Box>
     </div>
   );
