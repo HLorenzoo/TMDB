@@ -25,8 +25,6 @@ import UpdateIcon from "@mui/icons-material/Update";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TranslateIcon from "@mui/icons-material/Translate";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import Carr from "./Carr";
-import CarrSer from "./CarrSer";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -37,29 +35,21 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: 5,
   color: theme.palette.text.secondary,
 }));
-
-export default function Carousal(props) {
-  const searchMoviesRedux = useSelector((state) => state.searchM);
-  const searchSeriesRedux = useSelector((state) => state.searchS);
-  console.log("searchin redux", searchMoviesRedux);
-  const [movies, setMovies] = useState([]);
+const Carr = ({ movies, fn }) => {
   const [value, setValue] = useState(0);
   const [id, setId] = useState("");
   const [singlemovie, setSinglemovie] = useState(null);
 
-  useEffect(() => {
-    setMovies(searchMoviesRedux.results);
-  }, [searchMoviesRedux]);
-
-  /*   const moveBehind = () => {
+  const moveBehind = () => {
     value === -100 * (movies.length - 7) ? setValue(0) : setValue(value - 100);
   };
   const moveAhead = () => {
     value === 0 ? setValue(-100 * (movies.length - 7)) : setValue(value + 100);
-  }; */
+  };
   return (
-    <div className="bodyDiv">
-      {/*       <Typography
+    <div>
+      {" "}
+      <Typography
         variant="h2"
         pl={3}
         sx={{
@@ -72,7 +62,7 @@ export default function Carousal(props) {
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
         />
-        Movies
+        MOVIES
         <SlideshowIcon
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
@@ -97,12 +87,12 @@ export default function Carousal(props) {
                   }
                   onClick={(e) => {
                     console.log("nombre de pelicula", movie);
-                    setSinglemovie(movie);
+                    fn(movie);
                   }}
                 />
                 <br />
                 <Typography variant="h5" pl={3}>
-                  {movie.name ? movie.name : "No hay nombres en db"}
+                  {movie.original_title ? movie.original_title : movie.name}
                 </Typography>
               </div>
             );
@@ -118,11 +108,8 @@ export default function Carousal(props) {
           <ArrowBackIos id="moveBehind" onClick={moveAhead} />
           <ArrowForwardIos id="moveAhead" onClick={moveBehind} />
         </div>
-      )} */}
-      <Carr fn={setSinglemovie} movies={searchMoviesRedux.results} />
-      <Carr fn={setSinglemovie} movies={searchSeriesRedux.results} />
-
-      {singlemovie ? (
+      )}
+      {/*   {singlemovie ? (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             variant="h2"
@@ -137,11 +124,7 @@ export default function Carousal(props) {
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
             />
-            {singlemovie.title
-              ? singlemovie.title
-              : singlemovie.name
-              ? singlemovie.name
-              : "No hay datos en db"}
+            {singlemovie.title ? singlemovie.title : "No hay datos en db"}
             <SlideshowIcon
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
@@ -181,11 +164,7 @@ export default function Carousal(props) {
                 sx={{ color: "rgba(20,110,154,0.86)" }}
               />{" "}
               Titulo :{" "}
-              {singlemovie.title
-                ? singlemovie.title
-                : singlemovie.name
-                ? singlemovie.name
-                : "No hay datos en db"}
+              {singlemovie.title ? singlemovie.title : "No hay datos en db"}
               <Button>
                 <StarBorderIcon sx={{ fontSize: 40 }} />
               </Button>
@@ -257,6 +236,9 @@ export default function Carousal(props) {
       ) : (
         "nada"
       )}
+     */}
     </div>
   );
-}
+};
+
+export default Carr;

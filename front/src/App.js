@@ -24,12 +24,15 @@ import {
   getSerieTopRated,
   // MOVIE REDUCERS
 } from "./state/media";
+import "./Style.css";
+import User from "./Pages/User";
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(sendMe());
-    /*    dispatch(getMovies());
+    /*     dispatch(getMovies());
     dispatch(getSeries()); */
     dispatch(getMoviesupcoming());
     dispatch(getSeriePopular());
@@ -39,22 +42,26 @@ function App() {
   }, []);
   const popular = useSelector((state) => state.popular);
   const toprated = useSelector((state) => state.toprated);
-  console.log("estas son mis movies", popular);
-  console.log("estas son mis series", toprated);
+
+  if (!popular.length)
+    return (
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    );
+
   return (
     <div className="App">
       <Box>
         <Navbar />
-        {popular && toprated ? (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/series" element={<Series />} />
-            <Route path="/search" element={<Search />} />
-          </Routes>
-        ) : (
-          "waiting"
-        )}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/series" element={<Series />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/user" element={<User />} />
+        </Routes>
       </Box>
     </div>
   );

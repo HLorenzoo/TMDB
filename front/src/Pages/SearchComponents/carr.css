@@ -44,6 +44,30 @@
   height: 30px;
   color: white;
 }
+#moveBehindd {
+  position: absolute;
+  background: none;
+  top: 30%;
+  left: 0;
+  transform: translateY(-48%);
+  width: 2%;
+  background-color: #333333d4;
+  border-radius: 50%;
+  height: 30px;
+  color: white;
+}
+#moveAheadd{
+  position: absolute;
+  background: none;
+  top: 30%;
+  right: 0;
+  transform: translateY(-48%);
+  width: 2%;
+  background-color: #333333d4;
+  border-radius: 50%;
+  height: 30px;
+  color: white;
+}
 
 .poster {
   width: 100%;

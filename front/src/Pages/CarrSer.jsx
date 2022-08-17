@@ -1,10 +1,7 @@
 import Search from "./Search";
-import Carousel from "./SearchComponents/Carrousel";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import "./SearchComponents/carr.css";
-import { useSelector } from "react-redux";
 import {
   Stack,
   Grid,
@@ -25,8 +22,8 @@ import UpdateIcon from "@mui/icons-material/Update";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TranslateIcon from "@mui/icons-material/Translate";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import Carr from "./Carr";
-import CarrSer from "./CarrSer";
+import { useSelector } from "react-redux";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -37,29 +34,22 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: 5,
   color: theme.palette.text.secondary,
 }));
-
-export default function Carousal(props) {
-  const searchMoviesRedux = useSelector((state) => state.searchM);
-  const searchSeriesRedux = useSelector((state) => state.searchS);
-  console.log("searchin redux", searchMoviesRedux);
-  const [movies, setMovies] = useState([]);
+const CarrSer = () => {
   const [value, setValue] = useState(0);
   const [id, setId] = useState("");
   const [singlemovie, setSinglemovie] = useState(null);
+  const movies = useSelector((state) => state.searchM);
 
-  useEffect(() => {
-    setMovies(searchMoviesRedux.results);
-  }, [searchMoviesRedux]);
-
-  /*   const moveBehind = () => {
+  const moveBehindd = () => {
     value === -100 * (movies.length - 7) ? setValue(0) : setValue(value - 100);
   };
-  const moveAhead = () => {
+  const moveAheadd = () => {
     value === 0 ? setValue(-100 * (movies.length - 7)) : setValue(value + 100);
-  }; */
+  };
   return (
-    <div className="bodyDiv">
-      {/*       <Typography
+    <div>
+      {" "}
+      <Typography
         variant="h2"
         pl={3}
         sx={{
@@ -72,7 +62,7 @@ export default function Carousal(props) {
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
         />
-        Movies
+        Series
         <SlideshowIcon
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
@@ -115,13 +105,10 @@ export default function Carousal(props) {
       </div>
       {movies && (
         <div>
-          <ArrowBackIos id="moveBehind" onClick={moveAhead} />
-          <ArrowForwardIos id="moveAhead" onClick={moveBehind} />
+          <ArrowBackIos id="moveBehindd" onClick={moveAheadd} />
+          <ArrowForwardIos id="moveAheadd" onClick={moveBehindd} />
         </div>
-      )} */}
-      <Carr fn={setSinglemovie} movies={searchMoviesRedux.results} />
-      <Carr fn={setSinglemovie} movies={searchSeriesRedux.results} />
-
+      )}
       {singlemovie ? (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
@@ -137,11 +124,7 @@ export default function Carousal(props) {
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
             />
-            {singlemovie.title
-              ? singlemovie.title
-              : singlemovie.name
-              ? singlemovie.name
-              : "No hay datos en db"}
+            {singlemovie.title ? singlemovie.title : "No hay datos en db"}
             <SlideshowIcon
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
@@ -181,11 +164,7 @@ export default function Carousal(props) {
                 sx={{ color: "rgba(20,110,154,0.86)" }}
               />{" "}
               Titulo :{" "}
-              {singlemovie.title
-                ? singlemovie.title
-                : singlemovie.name
-                ? singlemovie.name
-                : "No hay datos en db"}
+              {singlemovie.title ? singlemovie.title : "No hay datos en db"}
               <Button>
                 <StarBorderIcon sx={{ fontSize: 40 }} />
               </Button>
@@ -259,4 +238,6 @@ export default function Carousal(props) {
       )}
     </div>
   );
-}
+};
+
+export default CarrSer;

@@ -22,8 +22,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import SingUp from "./Singup";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearch } from "../../state/search";
-import { useNavigate } from "react-router-dom";
+import { getSearchMovies, getSearchSerie } from "../../state/search";
+import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logOut } from "../../state/login";
@@ -54,10 +54,15 @@ const Search = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSearch(search)).then(() => navigate("/search"));
+    dispatch(getSearchMovies(search))
+      .then(() => {
+        dispatch(getSearchSerie(search));
+      })
+      .then(() => navigate("/search"));
   };
   const handelLogOut = (e) => {
     dispatch(logOut()).then(() => navigate("/"));
+    setOpenLogin(!openLogin);
   };
   return (
     <div
@@ -74,7 +79,7 @@ const Search = (props) => {
         />
       </CustomButton>
       <FormControl sx={{ flexGrow: 1, width: "100%", minWidth: 300 }}>
-        <InputLabel htmlFor="component-filled" sx={{}}>
+        <InputLabel htmlFor="component-filled">
           Busca tu Pelicula o Serie Fav!
         </InputLabel>
         <OutlinedInput
@@ -99,7 +104,7 @@ const Search = (props) => {
           sx={{ fontSize: 40, display: { xs: "block", md1: "none" } }}
         />
       </CustomButton>
-      {user ? (
+      {user.email ? (
         <Dialog
           open={openLogin}
           TransitionComponent={Transition}
@@ -116,8 +121,14 @@ const Search = (props) => {
               {user.username}
             </DialogTitle>
           </Box>
-          <CustomButton sx={{ marginRight: 6 }} onClick={handelLogOut}>
-            <LogoutIcon /> SingUp!
+
+          <Link to="/user">
+            <CustomButton sx={{ m: 5 }} onClick={(e) => setOpenLogin(!openLogin)}>
+              Perfil Usuario
+            </CustomButton>
+          </Link>
+          <CustomButton sx={{ m: 5 }} onClick={handelLogOut}>
+            <LogoutIcon /> Log Out!
           </CustomButton>
         </Dialog>
       ) : (
@@ -137,7 +148,7 @@ const Search = (props) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              <SingUp />
+              <SingUp handlePopUp={setOpenLogin} />
             </DialogContentText>
           </DialogContent>
         </Dialog>

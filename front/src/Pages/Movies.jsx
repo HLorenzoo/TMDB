@@ -8,8 +8,9 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import SlideshowIcon from "@mui/icons-material/Slideshow";
 import axios from "axios";
 import Carousell from "../Components/Carousel/Carousel";
+import { useSelector } from "react-redux";
 const Movies = () => {
-  const [movies, setMovies] = useState(["popular"]);
+  /*   const [movies, setMovies] = useState(["popular"]);
   const [moviess, setMoviess] = useState(["top_rated"]);
   const [moviesss, setMoviesss] = useState(["upcoming"]);
   useEffect(() => {
@@ -35,7 +36,11 @@ const Movies = () => {
       )
       .then((res) => setMoviesss(res.data.results));
   }, []);
-  movies && console.log(movies);
+ */
+  const popular = useSelector((state) => state.popular);
+  const toprated = useSelector((state) => state.toprated);
+  const upcoming = useSelector((state) => state.upcoming);
+  
   return (
     <Stack
       direction="column"
@@ -97,7 +102,7 @@ const Movies = () => {
             spacing={2}
           >
             <Grid item xs={12} justifyContent="center" alignItems="center">
-              <Carousell movies={movies} />
+              <Carousell movies={popular} />
             </Grid>
           </Grid>
         </Box>
@@ -135,7 +140,7 @@ const Movies = () => {
             spacing={2}
           >
             <Grid item xs={12} justifyContent="center" alignItems="center">
-              <Carousell movies={moviess} />
+              <Carousell movies={toprated} />
             </Grid>
           </Grid>
         </Box>
@@ -173,7 +178,7 @@ const Movies = () => {
             spacing={2}
           >
             <Grid item xs={12} justifyContent="center" alignItems="center">
-              <Carousell movies={movies} />
+              <Carousell movies={upcoming} />
             </Grid>
           </Grid>
         </Box>

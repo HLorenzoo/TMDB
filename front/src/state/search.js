@@ -2,14 +2,26 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 //action
 
-export const getSearch = createAsyncThunk("SEARCHING_DATA", async (name) => {
-  const res = await axios.get(`api/media/search/${name}`);
-  return res.data;
-});
+export const getSearchMovies = createAsyncThunk(
+  "SEARCHING_MOVIE",
+  async (name) => {
+    const res = await axios.get(`api/media/searchM/${name}`);
+    return res.data;
+  }
+);
+export const getSearchSerie = createAsyncThunk(
+  "SEARCHING_SERIE",
+  async (name) => {
+    const res = await axios.get(`api/media/searchS/${name}`);
+    return res.data;
+  }
+);
 
 //reducer
-const searchReducer = createReducer([], {
-  [getSearch.fulfilled]: (state, action) => action.payload,
+export const searchMovieReducer = createReducer([], {
+  [getSearchMovies.fulfilled]: (state, action) => action.payload,
 });
 
-export default searchReducer;
+export const searchSerieReducer = createReducer([], {
+  [getSearchSerie.fulfilled]: (state, action) => action.payload,
+});

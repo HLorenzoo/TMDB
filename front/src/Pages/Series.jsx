@@ -9,8 +9,9 @@ import axios from "axios";
 import Carousell from "./SeriesComponents/Carousel/Carousel";
 import ConnectedTvIcon from "@mui/icons-material/ConnectedTv";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
+import { useSelector } from "react-redux";
 const Series = () => {
-  const [movies, setMovies] = useState(["popular"]);
+  /* const [movies, setMovies] = useState(["popular"]);
   const [moviess, setMoviess] = useState(["top_rated"]);
   const [moviesss, setMoviesss] = useState(["upcoming"]);
   useEffect(() => {
@@ -36,7 +37,10 @@ const Series = () => {
       )
       .then((res) => setMoviesss(res.data.results));
   }, []);
-  movies && console.log(movies);
+  movies && console.log(movies); */
+
+  const popular = useSelector((state) => state.popularSerie);
+  const toprated = useSelector((state) => state.topratedSerie);
   return (
     <Stack
       direction="column"
@@ -92,7 +96,7 @@ const Series = () => {
             spacing={2}
           >
             <Grid item xs={12} justifyContent="center" alignItems="center">
-              <Carousell movies={movies} />
+              <Carousell movies={popular} />
             </Grid>
           </Grid>
         </Box>
@@ -130,11 +134,11 @@ const Series = () => {
             spacing={2}
           >
             <Grid item xs={12} justifyContent="center" alignItems="center">
-              <Carousell movies={moviess} />
+              <Carousell movies={toprated} />
             </Grid>
           </Grid>
         </Box>
-        <Box
+        {/* <Box
           flex={5}
           p={6}
           sx={{
@@ -171,7 +175,7 @@ const Series = () => {
               <Carousell movies={movies} />
             </Grid>
           </Grid>
-        </Box>
+        </Box> */}
       </Box>
       <Right />
     </Stack>

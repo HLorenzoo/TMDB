@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Stack } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { logIn, signUp } from "../../state/login";
+import { logIn } from "../../state/login";
 import { useNavigate } from "react-router";
 
 function Copyright(props) {
@@ -34,10 +34,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const SignUp = ({ handlePopUp }) => {
+const EditUser = ({ handlePopUp }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, setLogin] = useState({ email: "", password: "" });
+
   const [register, setRegister] = useState({
     username: "",
     email: "",
@@ -48,19 +48,11 @@ const SignUp = ({ handlePopUp }) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
     console.log(register);
   };
-  const handelLoginInputs = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
-    console.log(login);
-  };
 
   const handelRegister = (event) => {
     event.preventDefault();
-    dispatch(signUp(register)).then(() => navigate("/"));
   };
-  const handelLogin = (event) => {
-    event.preventDefault();
-    dispatch(logIn(login)).then(() => handlePopUp(false), navigate("/"));
-  };
+
   return (
     <ThemeProvider theme={theme}>
       <Stack direction="row" spacing={5} justifyContent="space-around">
@@ -78,7 +70,7 @@ const SignUp = ({ handlePopUp }) => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Registrarse
+              Cambia tus datos!
             </Typography>
             <Box
               component="form"
@@ -129,68 +121,7 @@ const SignUp = ({ handlePopUp }) => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2, bgcolor: "rgba(20,110,154,0.86)" }}
               >
-                Registrarse
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item></Grid>
-              </Grid>
-            </Box>
-          </Box>
-        </Box>
-        <Box component="main" maxWidth="xs" flex={3}>
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 12,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "rgba(20,110,154,0.86)" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handelLogin}
-              sx={{ mt: 3, mb: 6 }}
-            >
-              <Grid container spacing={7}>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={handelLoginInputs}
-                    required
-                    fullWidth
-                    id="email"
-                    label="Tu direccion de email"
-                    name="email"
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={handelLoginInputs}
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="Tu contraseña"
-                    id="password"
-                    autoComplete="new-password"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, bgcolor: "rgba(20,110,154,0.86)" }}
-              >
-                Logueate!
+                Edita tu usuario!
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item></Grid>
@@ -204,4 +135,4 @@ const SignUp = ({ handlePopUp }) => {
   );
 };
 
-export default SignUp;
+export default EditUser;
