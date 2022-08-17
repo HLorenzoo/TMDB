@@ -35,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: 5,
   color: theme.palette.text.secondary,
 }));
-const Carr = ({ movies, fn }) => {
+const Carr = ({ movies, fn, nombre }) => {
   const [value, setValue] = useState(0);
   const [id, setId] = useState("");
   const [singlemovie, setSinglemovie] = useState(null);
@@ -62,7 +62,7 @@ const Carr = ({ movies, fn }) => {
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
         />
-        MOVIES
+        {nombre}
         <SlideshowIcon
           fontSize="large"
           sx={{ color: "rgba(20,110,154,0.86)" }}
@@ -104,9 +104,9 @@ const Carr = ({ movies, fn }) => {
         )}
       </div>
       {movies && (
-        <div>
-          <ArrowBackIos id="moveBehind" onClick={moveAhead} />
-          <ArrowForwardIos id="moveAhead" onClick={moveBehind} />
+        <div className="container">
+          <ArrowBackIos id="moveBehindd" onClick={moveAhead} />
+          <ArrowForwardIos id="moveAheadd" onClick={moveBehind} />
         </div>
       )}
       {/*   {singlemovie ? (

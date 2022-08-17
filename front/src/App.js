@@ -26,7 +26,8 @@ import {
 } from "./state/media";
 import "./Style.css";
 import User from "./Pages/User";
-
+import SinglePage from "./Pages/SinglePage";
+import SinglePageSerie from "./Pages/SeriesComponents/Carousel/SinglepageSerie";
 function App() {
   const dispatch = useDispatch();
 
@@ -58,6 +59,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:id" element={<SinglePage />} />
+          <Route path="/series/:id" element={<SinglePageSerie />} />
           <Route path="/series" element={<Series />} />
           <Route path="/search" element={<Search />} />
           <Route path="/user" element={<User />} />

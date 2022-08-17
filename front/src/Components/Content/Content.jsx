@@ -20,9 +20,9 @@ const Content = () => {
   }, []); */
 
   return (
-    <Box flex={5} p={6}>
+    <Box flex={6} p={6}>
       <Stack direction="row" spacing={6} alignItems="center">
-        <Box marginBottom={4} flex={1.5}>
+        <Box marginBottom={4} flex={1}>
           <LatScroll />
         </Box>
         <Stack flex={4}>

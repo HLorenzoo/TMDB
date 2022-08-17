@@ -28,6 +28,24 @@ export const getMoviesupcoming = createAsyncThunk(
     return res.data;
   }
 );
+export const movieSelected = createAsyncThunk(
+  "SELECTED_MOVIE",
+  async (movieid) => {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieid}?api_key=cf7662d405b231918672c758f8b2a04f`
+    );
+    return res.data;
+  }
+);
+export const serieSelected = createAsyncThunk(
+  "SELECTED_Serie",
+  async (serieid) => {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/tv/${serieid}?api_key=cf7662d405b231918672c758f8b2a04f`
+    );
+    return res.data;
+  }
+);
 //series refactor
 
 export const getSeriePopular = createAsyncThunk(
@@ -71,6 +89,17 @@ export const movieTopRatedReducer = createReducer([], {
 export const movieUpcomingReducer = createReducer([], {
   [getMoviesupcoming.fulfilled]: (state, action) => action.payload,
 });
+//SELECTED REDUCERS
+export const selectedMovieReducer = createReducer([], {
+  [movieSelected.fulfilled]: (state, action) => action.payload,
+});
+export const selectedSerieReducer = createReducer([], {
+  [serieSelected.fulfilled]: (state, action) => action.payload,
+});
+
+
+
+
 
 //SERIE REDUCERS
 export const seriePopularReducer = createReducer([], {

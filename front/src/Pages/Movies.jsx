@@ -9,38 +9,12 @@ import SlideshowIcon from "@mui/icons-material/Slideshow";
 import axios from "axios";
 import Carousell from "../Components/Carousel/Carousel";
 import { useSelector } from "react-redux";
+
 const Movies = () => {
-  /*   const [movies, setMovies] = useState(["popular"]);
-  const [moviess, setMoviess] = useState(["top_rated"]);
-  const [moviesss, setMoviesss] = useState(["upcoming"]);
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
-          Math.random() * 6 + 0
-        )}`
-      )
-      .then((res) => setMovies(res.data.results));
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
-          Math.random() * 6 + 0
-        )}`
-      )
-      .then((res) => setMoviess(res.data.results));
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
-          Math.random() * 6 + 0
-        )}`
-      )
-      .then((res) => setMoviesss(res.data.results));
-  }, []);
- */
   const popular = useSelector((state) => state.popular);
   const toprated = useSelector((state) => state.toprated);
   const upcoming = useSelector((state) => state.upcoming);
-  
+
   return (
     <Stack
       direction="column"

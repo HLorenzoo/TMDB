@@ -6,7 +6,13 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import { CardActionArea, Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import { useDispatch } from "react-redux";
+import { movieSelected } from "../../state/media";
 export default function ActionAreaCard({ pelicula }) {
+  const dispatch = useDispatch();
+  const handelClick = (pelicula) => {
+    console.log("click");
+  };
   return (
     <Card
       sx={{
@@ -34,6 +40,7 @@ export default function ActionAreaCard({ pelicula }) {
               }}
             >
               <Typography
+                
                 gutterBottom
                 variant="h3"
                 component="h1"

@@ -24,7 +24,7 @@ export default function ActionAreaCard({ pelicula }) {
           <CardMedia
             sx={{ height: "600px" }}
             media="picture"
-            image={`https://image.tmdb.org/t/p/original${pelicula.poster_path}`}
+            image={`https://image.tmdb.org/t/p/original${pelicula.backdrop_path}`}
           >
             <CardContent
               className="fiCardContent"

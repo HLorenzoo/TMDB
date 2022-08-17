@@ -38,103 +38,10 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Carousal(props) {
-  const searchMoviesRedux = useSelector((state) => state.searchM);
-  const searchSeriesRedux = useSelector((state) => state.searchS);
-  console.log("searchin redux", searchMoviesRedux);
-  const [movies, setMovies] = useState([]);
-  const [value, setValue] = useState(0);
-  const [id, setId] = useState("");
-  const [singlemovie, setSinglemovie] = useState(null);
-  const movie = { m: "Movies" };
-  const serie = { m: "Series" };
-
-  useEffect(() => {
-    setMovies(searchMoviesRedux.results);
-  }, [searchMoviesRedux]);
-
-  /*   const moveBehind = () => {
-    value === -100 * (movies.length - 7) ? setValue(0) : setValue(value - 100);
-  };
-  const moveAhead = () => {
-    value === 0 ? setValue(-100 * (movies.length - 7)) : setValue(value + 100);
-  }; */
+const SinglePage = () => {
+    const singlemovie = useSelector((state)=>state.selectedMovie)
   return (
-    <div className="bodyDiv">
-      {/*       <Typography
-        variant="h2"
-        pl={3}
-        sx={{
-          boxShadow: "0px 10px 0px 0px rgba(20,110,154,0.86)",
-          transition: "all .25s ease-out",
-          "&:hover": { transform: "rotate(-1deg)" },
-        }}
-      >
-        <SlideshowIcon
-          fontSize="large"
-          sx={{ color: "rgba(20,110,154,0.86)" }}
-        />
-        Movies
-        <SlideshowIcon
-          fontSize="large"
-          sx={{ color: "rgba(20,110,154,0.86)" }}
-        />
-      </Typography>
-      <div className="glider">
-        {movies ? (
-          movies.map((movie, index) => {
-            return (
-              <div
-                key={index}
-                className="glide"
-                style={{ transform: `translateX(${value}%)` }}
-              >
-                <img
-                  key={movie.id}
-                  className="poster"
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
-                      : "https://m.media-amazon.com/images/I/61FQCSP7ZIL._SS500_.jpg"
-                  }
-                  onClick={(e) => {
-                    console.log("nombre de pelicula", movie);
-                    setSinglemovie(movie);
-                  }}
-                />
-                <br />
-                <Typography variant="h5" pl={3}>
-                  {movie.name ? movie.name : "No hay nombres en db"}
-                </Typography>
-              </div>
-            );
-          })
-        ) : (
-          <div className="errorDiv">
-            <h6>No hay componentes a renderizar</h6>
-          </div>
-        )}
-      </div>
-      {movies && (
-        <div>
-          <ArrowBackIos id="moveBehind" onClick={moveAhead} />
-          <ArrowForwardIos id="moveAhead" onClick={moveBehind} />
-        </div>
-      )} */}
-      <Box>
-        <Carr
-          fn={setSinglemovie}
-          nombre={"SERIES"}
-          movies={searchMoviesRedux.results}
-        />
-      </Box>
-      <Box>
-        <Carr
-          fn={setSinglemovie}
-          nombre={"MOVIES"}
-          movies={searchSeriesRedux.results}
-        />
-      </Box>
+    <div>
       {singlemovie ? (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
@@ -272,4 +179,6 @@ export default function Carousal(props) {
       )}
     </div>
   );
-}
+};
+
+export default SinglePage;
