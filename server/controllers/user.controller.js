@@ -51,10 +51,19 @@ class UserController {
   static async addFav(req, res, next) {
     try {
       const _id = req.params._id;
+      console.log(_id, req.body.favorites);
       const userUpdated = await UserService.addFav(_id, req.body.favorites);
       res.status(200).send(userUpdated);
     } catch (error) {
       next();
+    }
+  }
+  static async setFavorite(req, res) {
+    try {
+      const user = await UserService.setFavorite(req.params.id, req.body);
+      res.status(201).send(user);
+    } catch (err) {
+      console.error(err);
     }
   }
   static async deleteFav(req, res, next) {

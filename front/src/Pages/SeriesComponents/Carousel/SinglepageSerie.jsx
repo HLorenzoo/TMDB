@@ -20,7 +20,8 @@ import UpdateIcon from "@mui/icons-material/Update";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TranslateIcon from "@mui/icons-material/Translate";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-
+import { useDispatch } from "react-redux";
+import { setNewFavorite } from "../../../state/login";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -33,6 +34,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SinglePageSerie = () => {
+  const dispatch = useDispatch();
+
+  const addTofav = () => {
+    dispatch(setNewFavorite(singlemovie));
+  };
+
   const singlemovie = useSelector((state) => state.selectedSerie);
   return (
     <div>
@@ -101,7 +108,7 @@ const SinglePageSerie = () => {
                 ? singlemovie.name
                 : "No hay datos en db"}
               <Button>
-                <StarBorderIcon sx={{ fontSize: 40 }} />
+                <StarBorderIcon sx={{ fontSize: 40 }} onClick={addTofav} />
               </Button>
               <br />
               <br />

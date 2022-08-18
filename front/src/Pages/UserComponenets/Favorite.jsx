@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import { Box, Grid, styled, Paper, Typography, Stack } from "@mui/material";
+import {
+  Box,
+  Grid,
+  styled,
+  Paper,
+  Typography,
+  Stack,
+  Button,
+} from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { deleteFavorite } from "../../state/login";
+import { useDispatch } from "react-redux";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#1d95cf",
   padding: theme.spacing(0.75),
@@ -11,18 +22,12 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: " 15px 19px 43px -17px rgba(0,0,0,0.55)",
 }));
 const Favorites = () => {
-  /*   const [movies, setMovies] = useState([]); */
-  const movies = useSelector((state) => state.toprated);
-  /*   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=cf7662d405b231918672c758f8b2a04f&language=en-US&page=${Math.floor(
-          Math.random() * 8 + 1
-        )}`
-      )
-      .then((res) => setMovies(res.data.results));
-  }, []);
- */
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.login);
+
+  const handleDelete = (movie) => {
+    dispatch(deleteFavorite(movie));
+  };
   return (
     <Box
       sx={{
@@ -62,57 +67,72 @@ const Favorites = () => {
         spacing={2}
       >
         <Grid item xs={12} justifyContent="center" alignItems="center">
-          {movies.map((movie) => (
-            <Item sx={{ borderRadius: " 26px 26px 88px 0px " }}>
-              <Stack direction="row" spacing={2} justifyContent="space-around">
-                <Box flex={1} sx={{ display: { xs: "none", md1: "block" } }}>
-                  <Box
-                    component="img"
-                    sx={{
-                      borderRadius: 3,
-                      boxShadow: " 15px 19px 43px -17px rgba(5,5,5,0.53)",
-                    }}
-                    alt="Hernu Logo"
-                    src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                  />
-                </Box>
-                <Box flex={2} sx={{ display: { xs: "none", md1: "block" } }}>
-                  <Typography
-                    gutterBottom
-                    variant="h7"
-                    component="p"
-                    sx={{
-                      p: 2,
-                      color: "rgba(255,255,255,0.78)",
-                      backgroundColor: "#146e9a",
-                      borderRadius: 3,
-                      borderRadius: " 26px 26px 128px 0px ",
-                    }}
-                  >
-                    {movie.original_title}
-                  </Typography>
-                  <Box
-                    sx={{
-                      p: 0,
-                      display: "flex",
-                      alignItems: "initial",
-                      color: "rgba(255,255,255,0.78)",
-                      backgroundColor: "#146e9a",
-                      borderRadius: 3,
-                      borderRadius: " 26px 26px 128px 0px ",
-                      maxWidth: "80%",
-                    }}
-                  >
-                    <StarIcon fontSize="medium" />
-                    <Typography gutterBottom variant="body1" component="p">
-                      {`${
-                        movie.vote_average ? movie.vote_average : "No Rating"
-                      }`}
-                    </Typography>
+          {user.favorites?.map((movie) => (
+            <Box display="flex" alignItems="center">
+              <Button
+                sx={{ borderRadius: "50px" }}
+                onClick={() => handleDelete(movie)}
+              >
+                <DeleteOutlineOutlinedIcon
+                  sx={{ fontSize: "2.2rem", color: "#146e9a" }}
+                />
+              </Button>
+
+              <Item sx={{ borderRadius: " 26px 26px 88px 0px " }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  justifyContent="space-around"
+                >
+                  <Box flex={1} sx={{ display: { xs: "none", md1: "block" } }}>
+                    <Box
+                      component="img"
+                      sx={{
+                        borderRadius: 3,
+                        boxShadow: " 15px 19px 43px -17px rgba(5,5,5,0.53)",
+                      }}
+                      alt="Hernu Logo"
+                      src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                    />
                   </Box>
-                </Box>
-              </Stack>
-            </Item>
+                  <Box flex={2} sx={{ display: { xs: "none", md1: "block" } }}>
+                    <Typography
+                      gutterBottom
+                      variant="h7"
+                      component="p"
+                      sx={{
+                        p: 2,
+                        color: "rgba(255,255,255,0.78)",
+                        backgroundColor: "#146e9a",
+                        borderRadius: 3,
+                        borderRadius: " 26px 26px 128px 0px ",
+                      }}
+                    >
+                      {movie.original_title ? movie.original_title : movie.name}
+                    </Typography>
+                    <Box
+                      sx={{
+                        p: 0,
+                        display: "flex",
+                        alignItems: "initial",
+                        color: "rgba(255,255,255,0.78)",
+                        backgroundColor: "#146e9a",
+                        borderRadius: 3,
+                        borderRadius: " 26px 26px 128px 0px ",
+                        maxWidth: "80%",
+                      }}
+                    >
+                      <StarIcon fontSize="medium" />
+                      <Typography gutterBottom variant="body1" component="p">
+                        {`${
+                          movie.vote_average ? movie.vote_average : "No Rating"
+                        }`}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Stack>
+              </Item>
+            </Box>
           ))}
         </Grid>
       </Grid>

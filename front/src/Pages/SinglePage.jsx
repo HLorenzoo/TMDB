@@ -27,6 +27,8 @@ import TranslateIcon from "@mui/icons-material/Translate";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Carr from "./Carr";
 import CarrSer from "./CarrSer";
+import { useDispatch } from "react-redux";
+import { setNewFavorite } from "../state/login";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -39,7 +41,14 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SinglePage = () => {
-    const singlemovie = useSelector((state)=>state.selectedMovie)
+  const dispatch = useDispatch();
+  const singlemovie = useSelector((state) => state.selectedMovie);
+
+  const addTofav = (movie) => {
+    console.log(movie);
+    dispatch(setNewFavorite(movie));
+  };
+
   return (
     <div>
       {singlemovie ? (
@@ -62,10 +71,7 @@ const SinglePage = () => {
               : singlemovie.name
               ? singlemovie.name
               : "No hay datos en db"}
-            <SlideshowIcon
-              fontSize="large"
-              sx={{ color: "rgba(20,110,154,0.86)" }}
-            />
+            <SlideshowIcon fontSize="large" sx={{ color: "red" }} />
           </Typography>
           <br />
           <Paper
@@ -106,7 +112,7 @@ const SinglePage = () => {
                 : singlemovie.name
                 ? singlemovie.name
                 : "No hay datos en db"}
-              <Button>
+              <Button onClick={() => addTofav(singlemovie)}>
                 <StarBorderIcon sx={{ fontSize: 40 }} />
               </Button>
               <br />

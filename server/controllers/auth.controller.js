@@ -17,7 +17,7 @@ class AuthController {
             username: user.username,
             email: user.email,
             id: user._id,
-            favorites: user.favorites,
+            /* favorites: user.favorites, */
           },
           process.env.SECRET,
           { expiresIn: "5d" }
@@ -38,13 +38,17 @@ class AuthController {
     const user = await User.findOne({ email: req.body.email });
     /*     user || res.sendStatus(401); */
     if (!user) return res.sendStatus(401);
-    const { username, email, password, salt } = user;
+    const { _id, username, email, password, salt, favorites } = user;
     const passwordHash = bcrypt.hashSync(req.body.password, salt);
     if (passwordHash !== password) return res.sendStatus(401);
     if (passwordHash === password) {
-      const token = jwt.sign({ username, email }, process.env.SECRET, {
-        expiresIn: "5d",
-      });
+      const token = jwt.sign(
+        { _id, username, email /* favorites  */ },
+        process.env.SECRET,
+        {
+          expiresIn: "5d",
+        }
+      );
       const payload = jwt.verify(token, process.env.SECRET);
       req.user = payload;
       res.cookie("token", token, { maxAge: 999999 });

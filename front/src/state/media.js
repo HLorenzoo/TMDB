@@ -3,28 +3,28 @@ import axios from "axios";
 //action
 
 export const getMovies = createAsyncThunk("GET_ALL_MOVIES", async () => {
-  const res = await axios.get("api/media/movies");
+  const res = await axios.get("/api/media/movies");
   return res.data;
 });
 //refactor
 export const getMoviesPopular = createAsyncThunk(
   "GET_POPULAR_MOVIES",
   async () => {
-    const res = await axios.get("api/media/movies/popular");
+    const res = await axios.get("/api/media/movies/popular");
     return res.data;
   }
 );
 export const getMoviesTopRated = createAsyncThunk(
   "GET_TOP_MOVIES",
   async () => {
-    const res = await axios.get("api/media/movies/toprated");
+    const res = await axios.get("/api/media/movies/toprated");
     return res.data;
   }
 );
 export const getMoviesupcoming = createAsyncThunk(
   "GET_UPCOMING_MOVIES",
   async () => {
-    const res = await axios.get("api/media/movies/upcoming");
+    const res = await axios.get("/api/media/movies/upcoming");
     return res.data;
   }
 );
@@ -51,26 +51,27 @@ export const serieSelected = createAsyncThunk(
 export const getSeriePopular = createAsyncThunk(
   "GET_POPULAR_SERIE",
   async () => {
-    const res = await axios.get("api/media/serie/popular");
+    const res = await axios.get("/api/media/serie/popular");
     return res.data;
   }
 );
 export const getSerieTopRated = createAsyncThunk("GET_TOP_SERIE", async () => {
-  const res = await axios.get("api/media/serie/toprated");
+  const res = await axios.get("/api/media/serie/toprated");
   return res.data;
 });
 
 export const getSeries = createAsyncThunk("GET_ALL_SERIES", async () => {
-  const res = await axios.get("api/media/serie");
+  const res = await axios.get("/api/media/serie");
   return res.data;
 });
 export const searchAll = createAsyncThunk(
   "FIND_MOVIES_SERIES",
   async (name) => {
-    const res = await axios.get(`api/search/${name}`);
+    const res = await axios.get(`/api/search/${name}`);
     return res.data;
   }
 );
+
 //reducer
 export const movieReducer = createReducer([], {
   [getMovies.fulfilled]: (state, action) => action.payload,
@@ -96,10 +97,6 @@ export const selectedMovieReducer = createReducer([], {
 export const selectedSerieReducer = createReducer([], {
   [serieSelected.fulfilled]: (state, action) => action.payload,
 });
-
-
-
-
 
 //SERIE REDUCERS
 export const seriePopularReducer = createReducer([], {

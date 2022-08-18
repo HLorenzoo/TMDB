@@ -27,6 +27,9 @@ import TranslateIcon from "@mui/icons-material/Translate";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Carr from "./Carr";
 import CarrSer from "./CarrSer";
+import { useDispatch } from "react-redux";
+import { setNewFavorite } from "../state/login";
+import { SingleMovie } from "./SearchComponents/SingleMovie";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -41,86 +44,24 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Carousal(props) {
   const searchMoviesRedux = useSelector((state) => state.searchM);
   const searchSeriesRedux = useSelector((state) => state.searchS);
-  console.log("searchin redux", searchMoviesRedux);
   const [movies, setMovies] = useState([]);
   const [value, setValue] = useState(0);
   const [id, setId] = useState("");
   const [singlemovie, setSinglemovie] = useState(null);
   const movie = { m: "Movies" };
   const serie = { m: "Series" };
+  const dispatch = useDispatch();
+  const { favorites } = useSelector((state) => state.login);
+  /*   const addTofav = (movie) => {
+    dispatch(setNewFavorite(movie));
+  }; */
 
   useEffect(() => {
     setMovies(searchMoviesRedux.results);
   }, [searchMoviesRedux]);
 
-  /*   const moveBehind = () => {
-    value === -100 * (movies.length - 7) ? setValue(0) : setValue(value - 100);
-  };
-  const moveAhead = () => {
-    value === 0 ? setValue(-100 * (movies.length - 7)) : setValue(value + 100);
-  }; */
   return (
     <div className="bodyDiv">
-      {/*       <Typography
-        variant="h2"
-        pl={3}
-        sx={{
-          boxShadow: "0px 10px 0px 0px rgba(20,110,154,0.86)",
-          transition: "all .25s ease-out",
-          "&:hover": { transform: "rotate(-1deg)" },
-        }}
-      >
-        <SlideshowIcon
-          fontSize="large"
-          sx={{ color: "rgba(20,110,154,0.86)" }}
-        />
-        Movies
-        <SlideshowIcon
-          fontSize="large"
-          sx={{ color: "rgba(20,110,154,0.86)" }}
-        />
-      </Typography>
-      <div className="glider">
-        {movies ? (
-          movies.map((movie, index) => {
-            return (
-              <div
-                key={index}
-                className="glide"
-                style={{ transform: `translateX(${value}%)` }}
-              >
-                <img
-                  key={movie.id}
-                  className="poster"
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w780/${movie.poster_path}`
-                      : "https://m.media-amazon.com/images/I/61FQCSP7ZIL._SS500_.jpg"
-                  }
-                  onClick={(e) => {
-                    console.log("nombre de pelicula", movie);
-                    setSinglemovie(movie);
-                  }}
-                />
-                <br />
-                <Typography variant="h5" pl={3}>
-                  {movie.name ? movie.name : "No hay nombres en db"}
-                </Typography>
-              </div>
-            );
-          })
-        ) : (
-          <div className="errorDiv">
-            <h6>No hay componentes a renderizar</h6>
-          </div>
-        )}
-      </div>
-      {movies && (
-        <div>
-          <ArrowBackIos id="moveBehind" onClick={moveAhead} />
-          <ArrowForwardIos id="moveAhead" onClick={moveBehind} />
-        </div>
-      )} */}
       <Box>
         <Carr
           fn={setSinglemovie}
@@ -135,7 +76,11 @@ export default function Carousal(props) {
           movies={searchSeriesRedux.results}
         />
       </Box>
-      {singlemovie ? (
+      {singlemovie && (
+        <SingleMovie favorites={favorites} singlemovie={singlemovie} />
+      )}
+
+      {/* {singlemovie ? (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             variant="h2"
@@ -199,8 +144,12 @@ export default function Carousal(props) {
                 : singlemovie.name
                 ? singlemovie.name
                 : "No hay datos en db"}
-              <Button>
-                <StarBorderIcon sx={{ fontSize: 40 }} />
+              <Button onClick={() => addTofav(singlemovie)}>
+                <StarBorderIcon
+                  sx={{
+                    fontSize: 40,
+                  }}
+                />
               </Button>
               <br />
               <br />
@@ -266,10 +215,10 @@ export default function Carousal(props) {
               </Typography>
             </Typography>
           </Paper>
-        </Box>
-      ) : (
+        </Box> */}
+      {/* ) : (
         "nada"
-      )}
+      )} */}
     </div>
   );
 }

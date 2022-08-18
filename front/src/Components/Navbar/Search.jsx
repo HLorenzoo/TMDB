@@ -123,7 +123,10 @@ const Search = (props) => {
           </Box>
 
           <Link to="/user">
-            <CustomButton sx={{ m: 5 }} onClick={(e) => setOpenLogin(!openLogin)}>
+            <CustomButton
+              sx={{ m: 5 }}
+              onClick={(e) => setOpenLogin(!openLogin)}
+            >
               Perfil Usuario
             </CustomButton>
           </Link>

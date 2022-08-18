@@ -17,7 +17,7 @@ const User = () => {
   if (!user.username)
     return <Typography variant="h1"> ERROR! TIENE QUE LOGUEARSE</Typography>;
   return (
-    <Stack direction="row" spacing={2} justifyContent="space-around">
+    <Stack direction="row" spacing={1} justifyContent="center">
       <Left />
       <Box flex={1} p={6}>
         <Stack direction="row" spacing={2} alignItems="center">
@@ -31,7 +31,6 @@ const User = () => {
             <Typography variant="h3">
               Bienvenido de nuevo :
               <Typography
-              
                 paddingLeft={10}
                 variant="h2"
                 sx={{ color: "#35a9e2", "&:hover": { color: "#146e9a" } }}

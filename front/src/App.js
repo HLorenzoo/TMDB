@@ -28,13 +28,13 @@ import "./Style.css";
 import User from "./Pages/User";
 import SinglePage from "./Pages/SinglePage";
 import SinglePageSerie from "./Pages/SeriesComponents/Carousel/SinglepageSerie";
+import { getOneUser } from "./state/login";
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(sendMe());
-    /*     dispatch(getMovies());
-    dispatch(getSeries()); */
+    dispatch(sendMe())/* .then((r) => dispatch(getOneUser(r.payload._id)));
+ */
     dispatch(getMoviesupcoming());
     dispatch(getSeriePopular());
     dispatch(getSerieTopRated());

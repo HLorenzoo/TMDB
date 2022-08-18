@@ -68,7 +68,7 @@ class UserService {
       const user = await User.findByIdAndUpdate(
         _id,
         {
-          $push: { favorites: favorites },
+          $addToSet: { favorites: favorites },
         },
         { new: true }
       );
@@ -77,7 +77,44 @@ class UserService {
       console.error({ error });
     }
   }
+  static async getUserFavorites(id) {
+    try {
+      return await User.find({ _id: id, status: true }).select({
+        favorites: 1,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  static async setFavorite(id, favoriteBody) {
+    console.log(id, favoriteBody);
+    try {
+      if (!favoriteBody.id) throw Error("no content");
+      const favorites = await this.getUserFavorites(id);
+      const includeFavorite = favorites[0].favorites
+        .map((favorite) => favorite.id)
+        .includes(favoriteBody.id);
+      if (!includeFavorite) {
+        return await User.findByIdAndUpdate(
+          id,
+          {
+            $push: {
+              favorites: favoriteBody,
+            },
+          },
+          { new: true }
+        );
+      } else
+        return await User.findOne({ _id: id, status: true }).select({
+          password: 0,
+          salt: 0,
+        });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   static async deleteFav(_id, favorites) {
+    console.log(favorites);
     try {
       const user = await User.findByIdAndUpdate(
         _id,
