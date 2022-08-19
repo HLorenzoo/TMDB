@@ -53,7 +53,7 @@ const SignUp = ({ handlePopUp }) => {
 
   const handelRegister = (event) => {
     event.preventDefault();
-    dispatch(signUp(register)).then(() => navigate("/"));
+    dispatch(signUp(register)).then(() => handlePopUp(false), navigate("/"));
   };
   const handelLogin = (event) => {
     event.preventDefault();

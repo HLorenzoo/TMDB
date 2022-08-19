@@ -14,6 +14,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { useSelector, useDispatch } from "react-redux";
 import { movieSelected } from "../../state/media";
 import { useNavigate } from "react-router";
+import LatScroll from "./LatScroll";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#1d95cf",
@@ -22,11 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
   minWidth: "100%",
   boxShadow: " 15px 19px 43px -17px rgba(0,0,0,0.55)",
 }));
-const LatScroll = () => {
+const LatScrollRig = () => {
   /*   const [movies, setMovies] = useState([]); */
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const movies = useSelector((state) => state.toprated);
+  const movies = useSelector((state) => state.popular);
   /*   useEffect(() => {
     axios
       .get(
@@ -70,7 +71,7 @@ const LatScroll = () => {
             "&:hover": { transform: "rotate(-1deg)" },
           }}
         >
-          Trending
+          Populares
         </Typography>{" "}
         <WhatshotIcon fontSize="large" sx={{ color: "#146e9a" }} />
       </Box>
@@ -82,7 +83,7 @@ const LatScroll = () => {
           backgroundColor: "white",
           boxShadow: " -3px 10px 20px 2px rgba(20,110,154,1) ",
           border: "1px solid #146e9a",
-          borderRadius: "20px 20px 120px 20px",
+          borderRadius: "20px 20px 20px 120px",
           "&.MuiGrid-root": { ml: 0, mt: 0, boxSizing: "content-box" },
           "&::-webkit-scrollbar": {
             width: "0.4em",
@@ -101,7 +102,7 @@ const LatScroll = () => {
             >
               <Item
                 sx={{
-                  borderRadius: " 26px 26px 68px 0px ",
+                  borderRadius: " 26px 26px 0px 68px ",
                   "&:hover": {
                     "box-shadow": "-10px 10px 11px 2px rgba(0,66,102,0.92)",
                   },
@@ -112,23 +113,11 @@ const LatScroll = () => {
                   spacing={2.5}
                   justifyContent="space-around"
                 >
-                  {" "}
-                  <Box flex={1} sx={{ display: { xs: "none", md1: "block" } }}>
-                    <Box
-                      component="img"
-                      sx={{
-                        borderRadius: 3,
-                        boxShadow: "  -3px 10px 11px 2px rgba(0,0,0,0.4)",
-                      }}
-                      alt="Hernu Logo"
-                      src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                    />
-                  </Box>
                   <Box
                     flex={2}
                     sx={{
                       textAlign: "rigth",
-                      alignItems: "flex-start",
+                      alignItems: "flex-end",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-evenly",
@@ -146,7 +135,7 @@ const LatScroll = () => {
                         backgroundColor: "#146e9a",
                         borderRadius: 3,
                         width: "76%",
-                        borderRadius: " 26px 26px 88px 0px ",
+                        borderRadius: " 26px 26px 0px 88px ",
                       }}
                     >
                       {movie.original_title}
@@ -155,23 +144,34 @@ const LatScroll = () => {
                       sx={{
                         p: 0,
                         display: "flex",
-                        alignItems: "left",
+                        alignItems: "rigth",
                         color: "rgba(255,255,255,0.78)",
                         backgroundColor: "#146e9a",
                         borderRadius: 3,
-                        borderRadius: " 26px 26px 128px 0px ",
+                        borderRadius: " 26px 26px 0px 128px ",
                         maxWidth: "80%",
                         width: "100%",
                         justifyContent: "space-around",
                       }}
                     >
-                      <StarIcon fontSize="medium" />
                       <Typography gutterBottom variant="body1" component="p">
                         {`${
                           movie.vote_average ? movie.vote_average : "No Rating"
                         }`}
                       </Typography>
+                      <StarIcon fontSize="medium" />
                     </Box>
+                  </Box>
+                  <Box flex={1} sx={{ display: { xs: "none", md1: "block" } }}>
+                    <Box
+                      component="img"
+                      sx={{
+                        borderRadius: 3,
+                        boxShadow: "  -3px 10px 11px 2px rgba(0,0,0,0.4)",
+                      }}
+                      alt="Hernu Logo"
+                      src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                    />
                   </Box>
                 </Stack>
               </Item>
@@ -183,4 +183,4 @@ const LatScroll = () => {
   );
 };
 
-export default LatScroll;
+export default LatScrollRig;

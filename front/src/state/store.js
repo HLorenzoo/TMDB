@@ -13,7 +13,7 @@ import { searchMovieReducer } from "./search";
 import { selectedMovieReducer } from "./media";
 import { selectedSerieReducer } from "./media";
 const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  /*  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger), */
   reducer: {
     //search-Login
     searchM: searchMovieReducer,

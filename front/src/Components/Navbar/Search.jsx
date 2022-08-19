@@ -14,6 +14,7 @@ import {
   Dialog,
   Slide,
   Box,
+  IconButton,
 } from "@mui/material";
 import React from "react";
 import { PersonPin, AddBox } from "@mui/icons-material";
@@ -46,7 +47,7 @@ const Search = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
-  console.log("el usuario es :", user);
+
   const [search, setsearch] = useState("");
 
   const handleChange = (event) => {
@@ -111,28 +112,55 @@ const Search = (props) => {
           keepMounted
           onClose={(e) => setOpenLogin(!openLogin)}
           aria-describedby="alert-dialog-slide-description"
+          PaperProps={{
+            sx: { borderRadius: "14px" },
+          }}
         >
-          <Box>
-            <DialogTitle>
-              <AccountCircleIcon
-                fontSize="large"
-                sx={{ color: "rgba(20,110,154,0.86)" }}
-              />
-              {user.username}
-            </DialogTitle>
-          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              height: "fit-content",
+              m: 3,
+            }}
+          >
+            <Link to="/user" style={{ textDecoration: "none" }}>
+              <IconButton
+                sx={{ width: "100%" }}
+                onClick={(e) => setOpenLogin(!openLogin)}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#1d95cf",
+                    "&:hover": { backgroundColor: "#146e9a" },
+                    borderRadius: 5,
+                    /* width: "100%", */
+                  }}
+                >
+                  <AccountCircleIcon fontSize="large" sx={{ color: "white" }} />
+                  <DialogTitle sx={{ color: "white" }}>
+                    {user.username}
+                  </DialogTitle>
+                </Box>
+              </IconButton>
+            </Link>
 
-          <Link to="/user" style={{ textDecoration: "none" }}>
-            <CustomButton
-              sx={{ m: 5 }}
-              onClick={(e) => setOpenLogin(!openLogin)}
-            >
-              Perfil Usuario
+            {/*    <Link to="/user" style={{ textDecoration: "none" }}>
+              <CustomButton
+                sx={{ m: 2 }}
+                onClick={(e) => setOpenLogin(!openLogin)}
+              >
+                Perfil Usuario
+              </CustomButton>
+            </Link> */}
+            <CustomButton sx={{ m: 2 }} onClick={handelLogOut}>
+              <LogoutIcon /> Log Out!
             </CustomButton>
-          </Link>
-          <CustomButton sx={{ m: 5 }} onClick={handelLogOut}>
-            <LogoutIcon /> Log Out!
-          </CustomButton>
+          </Box>
         </Dialog>
       ) : (
         <Dialog

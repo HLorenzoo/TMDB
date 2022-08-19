@@ -44,7 +44,6 @@ const User = () => {
               </Typography>
             </Typography>
             <AccessibilityIcon fontSize="large" sx={{ color: "#146e9a" }} />
-            {/*  <EditUser /* user={user} */}
           </Box>
         </Stack>
       </Box>

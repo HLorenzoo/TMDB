@@ -12,7 +12,9 @@ export const signUp = createAsyncThunk("SIGN_UP", async (user) => {
 });
 export const sendMe = createAsyncThunk("ME_TOKENJWT", async () => {
   const { data } = await axios.get("/api/auth/me");
+
   const res = await axios.get(`/api/users/${data._id}`);
+
   return res.data[0];
 });
 export const logOut = createAsyncThunk("LOG_OUT", async () => {

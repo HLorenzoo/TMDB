@@ -16,8 +16,8 @@ class AuthController {
           {
             username: user.username,
             email: user.email,
-            id: user._id,
-            /* favorites: user.favorites, */
+            _id: user._id,
+            favorites: user.favorites,
           },
           process.env.SECRET,
           { expiresIn: "5d" }

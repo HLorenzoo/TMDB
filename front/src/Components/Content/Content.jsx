@@ -5,6 +5,7 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import LatScroll from "./LatScroll";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import LatScrollRig from "./LatscrollRig";
 const Content = () => {
   /*  const [movies, setMovies] = useState([]); */
   /*   const movies = useSelector((state) => state.movies); */
@@ -26,29 +27,39 @@ const Content = () => {
           <LatScroll />
         </Box>
         <Stack flex={4}>
-          <Typography
-            variant="h2"
-            pl={33}
+          <Box
             sx={{
-              boxShadow: "0px 10px 0px 0px rgba(20,110,154,0.86)",
-              transition: "all .25s ease-out",
-              "&:hover": { transform: "rotate(-1deg)" },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              m: 4,
             }}
           >
             <WhatshotIcon
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
             />
-            Lo mas visto
+            <Typography
+              variant="h2"
+              sx={{
+                /*  boxShadow: "0px 10px 0px 0px rgba(20,110,154,0.86)", */
+                transition: "all .25s ease-out",
+                "&:hover": { transform: "rotate(-1deg)" },
+              }}
+            >
+              Lo mas visto
+            </Typography>
             <WhatshotIcon
               fontSize="large"
               sx={{ color: "rgba(20,110,154,0.86)" }}
             />
-          </Typography>
-          <br />
-          <br />
+          </Box>
+
           <Carousell movies={movies} />
         </Stack>
+        <Box marginBottom={4} flex={1}>
+          <LatScrollRig />
+        </Box>
       </Stack>
     </Box>
   );
