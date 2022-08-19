@@ -54,11 +54,12 @@ const Search = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSearchMovies(search))
-      .then(() => {
-        dispatch(getSearchSerie(search));
-      })
-      .then(() => navigate("/search"));
+    search &&
+      dispatch(getSearchMovies(search))
+        .then(() => {
+          dispatch(getSearchSerie(search));
+        })
+        .then(() => navigate("/search"));
   };
   const handelLogOut = (e) => {
     dispatch(logOut()).then(() => navigate("/"));
@@ -94,9 +95,8 @@ const Search = (props) => {
           }}
         />
       </FormControl>
-      <CustomButton>
+      <CustomButton onClick={(e) => setOpenLogin(!openLogin)}>
         <PersonPin
-          onClick={(e) => setOpenLogin(!openLogin)}
           sx={{ fontSize: 45, display: { xs: "none", md1: "flex" } }}
         />
         <AddBox
@@ -122,7 +122,7 @@ const Search = (props) => {
             </DialogTitle>
           </Box>
 
-          <Link to="/user">
+          <Link to="/user" style={{ textDecoration: "none" }}>
             <CustomButton
               sx={{ m: 5 }}
               onClick={(e) => setOpenLogin(!openLogin)}

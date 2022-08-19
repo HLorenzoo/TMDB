@@ -46,11 +46,9 @@ const SignUp = ({ handlePopUp }) => {
 
   const handelRegisterInputs = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
-    console.log(register);
   };
   const handelLoginInputs = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
-    console.log(login);
   };
 
   const handelRegister = (event) => {

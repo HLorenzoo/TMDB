@@ -49,6 +49,7 @@ class UserService {
   }
   static async editUser(id, { password, username }) {
     try {
+      const salt = bcrypt.genSaltSync();
       return await User.findByIdAndUpdate(
         id,
         {
@@ -86,7 +87,7 @@ class UserService {
       console.error(err);
     }
   }
-  static async setFavorite(id, favoriteBody) {
+  /* static async setFavorite(id, favoriteBody) {
     console.log(id, favoriteBody);
     try {
       if (!favoriteBody.id) throw Error("no content");
@@ -112,7 +113,7 @@ class UserService {
     } catch (err) {
       console.error(err);
     }
-  }
+  } */
   static async deleteFav(_id, favorites) {
     console.log(favorites);
     try {

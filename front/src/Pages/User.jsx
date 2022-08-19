@@ -15,7 +15,12 @@ const User = () => {
   }, []);
   const user = useSelector((state) => state.login);
   if (!user.username)
-    return <Typography variant="h1"> ERROR! TIENE QUE LOGUEARSE</Typography>;
+    return (
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    );
   return (
     <Stack direction="row" spacing={1} justifyContent="center">
       <Left />
@@ -39,7 +44,7 @@ const User = () => {
               </Typography>
             </Typography>
             <AccessibilityIcon fontSize="large" sx={{ color: "#146e9a" }} />
-            <EditUser />
+            {/*  <EditUser /* user={user} */}
           </Box>
         </Stack>
       </Box>

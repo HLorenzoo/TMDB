@@ -9,25 +9,37 @@ import {
   Typography,
   Stack,
   Button,
+  IconButton,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { deleteFavorite } from "../../state/login";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { movieSelected } from "../../state/media";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#1d95cf",
-  padding: theme.spacing(0.75),
+  padding: theme.spacing(0.95),
   margin: 22,
   boxShadow: " 15px 19px 43px -17px rgba(0,0,0,0.55)",
+  minWidth: "77%",
 }));
 const Favorites = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login);
 
   const handleDelete = (movie) => {
     dispatch(deleteFavorite(movie));
   };
+  const handelClick = (movie) => {
+    dispatch(movieSelected(movie.id)).then(() =>
+      navigate(`/movies/${movie.id}}`)
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -64,7 +76,7 @@ const Favorites = () => {
           },
         }}
         container
-        spacing={2}
+        spacing={1.5}
       >
         <Grid item xs={12} justifyContent="center" alignItems="center">
           {user.favorites?.map((movie) => (
@@ -77,60 +89,72 @@ const Favorites = () => {
                   sx={{ fontSize: "2.2rem", color: "#146e9a" }}
                 />
               </Button>
-
               <Item sx={{ borderRadius: " 26px 26px 88px 0px " }}>
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  justifyContent="space-around"
+                <IconButton
+                  onClick={() => {
+                    handelClick(movie);
+                  }}
                 >
-                  <Box flex={1} sx={{ display: { xs: "none", md1: "block" } }}>
+                  <Stack
+                    direction="row"
+                    spacing={3}
+                    justifyContent="space-around"
+                  >
                     <Box
-                      component="img"
-                      sx={{
-                        borderRadius: 3,
-                        boxShadow: " 15px 19px 43px -17px rgba(5,5,5,0.53)",
-                      }}
-                      alt="Hernu Logo"
-                      src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                    />
-                  </Box>
-                  <Box flex={2} sx={{ display: { xs: "none", md1: "block" } }}>
-                    <Typography
-                      gutterBottom
-                      variant="h7"
-                      component="p"
-                      sx={{
-                        p: 2,
-                        color: "rgba(255,255,255,0.78)",
-                        backgroundColor: "#146e9a",
-                        borderRadius: 3,
-                        borderRadius: " 26px 26px 128px 0px ",
-                      }}
+                      flex={1}
+                      sx={{ display: { xs: "none", md1: "block" } }}
                     >
-                      {movie.original_title ? movie.original_title : movie.name}
-                    </Typography>
-                    <Box
-                      sx={{
-                        p: 0,
-                        display: "flex",
-                        alignItems: "initial",
-                        color: "rgba(255,255,255,0.78)",
-                        backgroundColor: "#146e9a",
-                        borderRadius: 3,
-                        borderRadius: " 26px 26px 128px 0px ",
-                        maxWidth: "80%",
-                      }}
-                    >
-                      <StarIcon fontSize="medium" />
-                      <Typography gutterBottom variant="body1" component="p">
-                        {`${
-                          movie.vote_average ? movie.vote_average : "No Rating"
-                        }`}
-                      </Typography>
+                      <Box
+                        component="img"
+                        sx={{
+                          borderRadius: 3,
+                          boxShadow: " 15px 19px 43px -17px rgba(5,5,5,0.53)",
+                        }}
+                        alt="Hernu Logo"
+                        src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                      />
                     </Box>
-                  </Box>
-                </Stack>
+                    <Box flex={2} sx={{ textAlign: "left" }}>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        component="p"
+                        sx={{
+                          p: 2,
+                          color: "rgba(255,255,255,0.78)",
+                          backgroundColor: "#146e9a",
+                          borderRadius: 3,
+                          borderRadius: " 26px 26px 128px 0px ",
+                        }}
+                      >
+                        {movie.original_title
+                          ? movie.original_title
+                          : movie.name}
+                      </Typography>
+                      <Box
+                        sx={{
+                          p: 0,
+                          display: "flex",
+                          alignItems: "initial",
+                          color: "rgba(255,255,255,0.78)",
+                          backgroundColor: "#146e9a",
+                          borderRadius: 3,
+                          borderRadius: " 26px 26px 128px 0px ",
+                          maxWidth: "90%",
+                        }}
+                      >
+                        <StarIcon fontSize="medium" />
+                        <Typography gutterBottom variant="body2" component="p">
+                          {`${
+                            movie.vote_average
+                              ? movie.vote_average
+                              : "No Rating"
+                          }`}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Stack>
+                </IconButton>
               </Item>
             </Box>
           ))}

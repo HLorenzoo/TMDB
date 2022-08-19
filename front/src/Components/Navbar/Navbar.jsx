@@ -19,12 +19,13 @@ const Navbar = () => {
   return (
     <AppBar position="sticky">
       <CustomToolBar>
-        <Link to='/'>
+        <Link to="/">
           <Box
             component="img"
             sx={{
               height: 50,
               width: 350,
+              borderRadius: 20,
               transition: "all .25s ease-out",
               "&:hover": { transform: "rotate(-2deg)" },
               display: { xs: "none", md1: "block" },
@@ -38,6 +39,7 @@ const Navbar = () => {
           component="img"
           sx={{
             height: 50,
+            borderRadius: 20,
             width: 0,
             "&:hover": {},
             display: { xs: "block", md1: "none" },

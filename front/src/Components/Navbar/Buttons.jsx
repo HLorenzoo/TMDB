@@ -7,7 +7,7 @@ const Buttons = () => {
     color: "white",
     size: "large",
     height: "7vh",
-    borderRadius: "0px 9px 24px 0px",
+    borderRadius: "8px 9px 24px 8px",
     "&:hover": {
       backgroundColor: theme.palette.light.buttonHover,
     },
@@ -26,7 +26,7 @@ const Buttons = () => {
         width: { xs: "10%", md: "25%" },
       }}
     >
-      <Link to="/movies">
+      <Link to="/movies" style={{ textDecoration: "none" }}>
         <CustomButton sx={{ display: { xs: "none", md1: "flex" } }}>
           <MovieCreationOutlined sx={{ margin: { xs: 0, md: "0 5px" } }} />
           <Typography
@@ -37,7 +37,7 @@ const Buttons = () => {
           </Typography>
         </CustomButton>
       </Link>
-      <Link to="/series">
+      <Link to="/series" style={{ textDecoration: "none" }}>
         <CustomButton sx={{ display: { xs: "none", md1: "flex" } }}>
           <SlideshowOutlined sx={{ margin: { xs: 0, md: "0 5px" } }} />
           <Typography

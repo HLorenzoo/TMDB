@@ -16,7 +16,7 @@ import { Stack } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../state/login";
 import { useNavigate } from "react-router";
-
+import axios from "axios";
 function Copyright(props) {
   return (
     <Typography
@@ -34,23 +34,25 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const EditUser = ({ handlePopUp }) => {
+const EditUser = ({ handlePopUp, user }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [myUser, setmyUser] = useState(user);
   const [register, setRegister] = useState({
     username: "",
-    email: "",
     password: "",
   });
 
-  const handelRegisterInputs = (e) => {
+  const handleEditInputs = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
-    console.log(register);
   };
 
-  const handelRegister = (event) => {
+  const handleEdit = (event) => {
     event.preventDefault();
+    axios
+      .put(`/api/users/${user._id}`, register)
+      .then(({ data }) => setmyUser(data))
+      .then(() => navigate("/"));
   };
 
   return (
@@ -75,13 +77,22 @@ const EditUser = ({ handlePopUp }) => {
             <Box
               component="form"
               noValidate
-              onSubmit={handelRegister}
+              onSubmit={handleEdit}
               sx={{ mt: 3, mb: 6 }}
             >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
-                    onChange={handelRegisterInputs}
+                    fullWidth
+                    value={user.email}
+                    disabled
+                    variant="outlined"
+                    label="Tu email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={handleEditInputs}
                     autoComplete="given-name"
                     name="username"
                     required
@@ -93,18 +104,7 @@ const EditUser = ({ handlePopUp }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    onChange={handelRegisterInputs}
-                    required
-                    fullWidth
-                    id="email"
-                    label="Tu direccion de email"
-                    name="email"
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    onChange={handelRegisterInputs}
+                    onChange={handleEditInputs}
                     required
                     fullWidth
                     name="password"

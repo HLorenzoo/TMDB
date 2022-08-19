@@ -34,7 +34,7 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: 5,
   color: theme.palette.text.secondary,
 }));
-export const SingleMovie = ({ singlemovie, favorites }) => {
+export const SingleMovie = ({ singlemovie, favorites = null }) => {
   const dispatch = useDispatch();
 
   const [active, setActive] = useState(false);
@@ -44,7 +44,7 @@ export const SingleMovie = ({ singlemovie, favorites }) => {
     setActive(true);
   };
   useEffect(() => {
-    const result = favorites.filter(
+    const result = favorites?.filter(
       (movie) => movie.id === singlemovie.id
     ).length;
     setActive(result ? true : false);

@@ -42,7 +42,12 @@ class UserController {
     try {
       const _id = req.params._id;
       const { username, password } = req.body;
-      const user = await UserService.editUser(_id, { username, password });
+      console.log(req.body);
+      const user = await UserService.editUser(_id, {
+        username,
+        password,
+      });
+      console.log(user);
       res.status(200).send(user);
     } catch (error) {
       next();
@@ -58,14 +63,14 @@ class UserController {
       next();
     }
   }
-  static async setFavorite(req, res) {
+  /*   static async setFavorite(req, res) {
     try {
       const user = await UserService.setFavorite(req.params.id, req.body);
       res.status(201).send(user);
     } catch (err) {
       console.error(err);
     }
-  }
+  } */
   static async deleteFav(req, res, next) {
     try {
       const _id = req.params._id;

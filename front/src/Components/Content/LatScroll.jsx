@@ -17,8 +17,9 @@ import { useNavigate } from "react-router";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#1d95cf",
-  padding: theme.spacing(0.75),
+  padding: theme.spacing(0.95),
   margin: 22,
+  minWidth: "100%",
   boxShadow: " 15px 19px 43px -17px rgba(0,0,0,0.55)",
 }));
 const LatScroll = () => {
@@ -65,7 +66,7 @@ const LatScroll = () => {
         Trending
         <WhatshotIcon fontSize="large" sx={{ color: "#146e9a" }} />
       </Typography>
-      <br />
+
       <Grid
         sx={{
           maxHeight: "77vh",
@@ -74,16 +75,18 @@ const LatScroll = () => {
           boxShadow: "3px 10px 20px -3px rgba(20,110,154,1) ",
           border: "1px solid #146e9a",
           borderRadius: "20px 20px 120px 20px",
+          "&.MuiGrid-root": { ml: 0, mt: 0, boxSizing: "content-box" },
           "&::-webkit-scrollbar": {
             width: "0.4em",
           },
         }}
         container
-        spacing={2}
+        spacing={1.5}
       >
         <Grid item xs={12} justifyContent="center" alignItems="center">
           {movies.map((movie) => (
             <Button
+              sx={{ width: "100%" }}
               onClick={() => {
                 handelClick(movie);
               }}
@@ -105,13 +108,15 @@ const LatScroll = () => {
                       src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
                     />
                   </Box>
-                  <Box flex={2} sx={{ display: { xs: "none", md1: "block" } }}>
+                  <Box flex={2} sx={{ textAlign: "left" }}>
                     <Typography
                       gutterBottom
-                      variant="h7"
+                      variant="body2"
                       component="p"
                       sx={{
                         p: 2,
+                        wordBreak: "break-all",
+
                         color: "rgba(255,255,255,0.78)",
                         backgroundColor: "#146e9a",
                         borderRadius: 3,

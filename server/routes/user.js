@@ -9,7 +9,7 @@ router.get("/:_id", UserController.findOneUser);
 //POST
 router.post("/", UserController.createUser);
 router.post("/addFav/:_id", UserController.addFav);
-router.put('/:id/favorites', UserController.setFavorite)
+/* router.put('/:id/favorites', UserController.setFavorite) */
 //DELETE
 router.delete("/:_id", UserController.deleteUser);
 router.put("/deleteFav/:_id", UserController.deleteFav);
